@@ -39,6 +39,6 @@ public class Todo extends BaseEntity {
     }
 
     public Todo() {
-
+        
     }
 }

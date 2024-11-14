@@ -2,12 +2,16 @@ package com.example.jpa_todolist.service.todo;
 
 import com.example.jpa_todolist.dto.todo.CreateTodoReqDto;
 import com.example.jpa_todolist.dto.todo.TodoResDto;
+import com.example.jpa_todolist.dto.todo.UpdateTodoReqDto;
 import com.example.jpa_todolist.entity.todo.Todo;
 import com.example.jpa_todolist.entity.user.User;
 import com.example.jpa_todolist.repository.todo.TodoRepository;
 import com.example.jpa_todolist.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -37,5 +41,19 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<TodoResDto> findAll() {
         return todoRepository.findAll().stream().map(TodoResDto::new).toList();
+    }
+
+    @Transactional
+    @Override
+    public TodoResDto update(Long id, UpdateTodoReqDto dto) {
+        Todo findTodo = todoRepository.findByIdOrElseThrow(id);
+
+        if (!findTodo.getUser().getId().equals(dto.getUserId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid user");
+        }
+
+        findTodo.updateTodo(dto.getTitle(), dto.getContents());
+
+        return new TodoResDto(findTodo);
     }
 }

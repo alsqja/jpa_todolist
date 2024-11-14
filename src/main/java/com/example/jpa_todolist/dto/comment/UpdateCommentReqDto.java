@@ -12,6 +12,8 @@ public class UpdateCommentReqDto {
 
     //  requestBody mapping 오류 발생 -> JsonCreator 해결
     //  왜 발생한 오류?
+    //  JsonCreator 사용 x -> 기본 생성자 필요
+    //  RequestBody -> String 으로 하나만 받기 가능
     @JsonCreator
     public UpdateCommentReqDto(String contents) {
         this.contents = contents;

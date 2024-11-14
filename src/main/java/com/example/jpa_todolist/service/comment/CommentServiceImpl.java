@@ -55,4 +55,17 @@ public class CommentServiceImpl implements CommentService {
 
         return new CommentResDto(comment);
     }
+
+    @Override
+    public void delete(Long id, Long userId) {
+        User user = userRepository.findByIdOrElseThrow(userId);
+
+        Comment comment = commentRepository.findByIdOrElseThrow(id);
+
+        if (!comment.getUser().getId().equals(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid user");
+        }
+
+        commentRepository.delete(comment);
+    }
 }

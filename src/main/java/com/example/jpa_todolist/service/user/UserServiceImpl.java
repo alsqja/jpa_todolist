@@ -1,5 +1,6 @@
 package com.example.jpa_todolist.service.user;
 
+import com.example.jpa_todolist.config.PasswordEncoder;
 import com.example.jpa_todolist.dto.user.CreateUserReqDto;
 import com.example.jpa_todolist.dto.user.LoginReqDto;
 import com.example.jpa_todolist.dto.user.UserResDto;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResDto signUp(CreateUserReqDto dto) {
@@ -26,14 +28,22 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email already exist");
         }
 
-        User saveUser = new User(dto.getName(), dto.getEmail(), dto.getPassword());
+        String password = passwordEncoder.encode(dto.getPassword());
+
+        User saveUser = new User(dto.getName(), dto.getEmail(), password);
 
         return new UserResDto(userRepository.save(saveUser));
     }
 
     @Override
     public UserResDto login(LoginReqDto dto) {
-        return new UserResDto(userRepository.findByEmailAndPasswordOrElseThrow(dto.getEmail(), dto.getPassword()));
+        User findUser = userRepository.findByEmailOrElseThrow(dto.getEmail());
+
+        if (!passwordEncoder.matches(dto.getPassword(), findUser.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "check your password");
+        }
+        
+        return new UserResDto(findUser);
     }
 
     @Override

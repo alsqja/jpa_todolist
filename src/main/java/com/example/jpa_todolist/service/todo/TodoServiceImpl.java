@@ -9,6 +9,8 @@ import com.example.jpa_todolist.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService {
@@ -30,5 +32,10 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public TodoResDto findById(Long id) {
         return new TodoResDto(todoRepository.findByIdOrElseThrow(id));
+    }
+
+    @Override
+    public List<TodoResDto> findAll() {
+        return todoRepository.findAll().stream().map(TodoResDto::new).toList();
     }
 }

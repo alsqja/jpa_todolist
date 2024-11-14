@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/todos")
@@ -29,5 +31,10 @@ public class TodoController {
     @GetMapping("/{id}")
     public ResponseEntity<TodoResDto> findById(@PathVariable Long id) {
         return new ResponseEntity<>(todoService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TodoResDto>> findById() {
+        return new ResponseEntity<>(todoService.findAll(), HttpStatus.OK);
     }
 }

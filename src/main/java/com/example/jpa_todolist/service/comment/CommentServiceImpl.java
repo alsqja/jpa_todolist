@@ -30,4 +30,9 @@ public class CommentServiceImpl implements CommentService {
 
         return new CommentResDto(commentRepository.save(comment));
     }
+
+    @Override
+    public CommentResDto findById(Long id) {
+        return new CommentResDto(commentRepository.findByIdOrElseThrow(id));
+    }
 }

@@ -8,4 +8,6 @@ public interface UserService {
     UserResDto signUp(CreateUserReqDto dto);
 
     UserResDto login(LoginReqDto dto);
+
+    void delete(Long id);
 }

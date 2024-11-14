@@ -35,4 +35,11 @@ public class UserServiceImpl implements UserService {
     public UserResDto login(LoginReqDto dto) {
         return new UserResDto(userRepository.findByEmailAndPasswordOrElseThrow(dto.getEmail(), dto.getPassword()));
     }
+
+    @Override
+    public void delete(Long id) {
+        User findUser = userRepository.findByIdOrElseThrow(id);
+
+        userRepository.delete(findUser);
+    }
 }

@@ -3,5 +3,5 @@
 # API
 
 # ERD
-![image](https://github.com/user-attachments/assets/50f58bab-0042-4ec1-90ac-dd30c1373cb4)
+<img width="601" alt="image" src="https://github.com/user-attachments/assets/9c9cd499-2aeb-4300-8cbd-245bbce26e9c">
 

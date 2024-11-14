@@ -7,11 +7,13 @@ import com.example.jpa_todolist.dto.todo.UpdateTodoReqDto;
 import java.util.List;
 
 public interface TodoService {
-    TodoResDto save(CreateTodoReqDto dto);
+    TodoResDto save(Long userId, CreateTodoReqDto dto);
 
     TodoResDto findById(Long id);
 
     List<TodoResDto> findAll();
 
-    TodoResDto update(Long id, UpdateTodoReqDto dto);
+    TodoResDto update(Long id, Long userId, UpdateTodoReqDto dto);
+
+    void delete(Long id, Long userId);
 }

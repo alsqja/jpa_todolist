@@ -14,12 +14,8 @@ public class UpdateTodoReqDto {
     @NotNull(message = "contents is required")
     private final String contents;
 
-    @NotNull(message = "userId is required")
-    private final Long userId;
-
     public UpdateTodoReqDto(String title, String contents, Long userId) {
         this.title = title;
         this.contents = contents;
-        this.userId = userId;
     }
 }

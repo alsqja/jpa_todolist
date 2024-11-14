@@ -1,6 +1,7 @@
 package com.example.jpa_todolist.service.user;
 
 import com.example.jpa_todolist.dto.user.CreateUserReqDto;
+import com.example.jpa_todolist.dto.user.LoginReqDto;
 import com.example.jpa_todolist.dto.user.UserResDto;
 import com.example.jpa_todolist.entity.user.User;
 import com.example.jpa_todolist.repository.user.UserRepository;
@@ -28,5 +29,10 @@ public class UserServiceImpl implements UserService {
         User saveUser = new User(dto.getName(), dto.getEmail(), dto.getPassword());
 
         return new UserResDto(userRepository.save(saveUser));
+    }
+
+    @Override
+    public UserResDto login(LoginReqDto dto) {
+        return new UserResDto(userRepository.findByEmailAndPasswordOrElseThrow(dto.getEmail(), dto.getPassword()));
     }
 }

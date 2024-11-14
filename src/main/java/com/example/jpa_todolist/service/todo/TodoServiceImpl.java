@@ -23,9 +23,9 @@ public class TodoServiceImpl implements TodoService {
     private final UserRepository userRepository;
 
     @Override
-    public TodoResDto save(CreateTodoReqDto dto) {
+    public TodoResDto save(Long userId, CreateTodoReqDto dto) {
 
-        User findUser = userRepository.findByIdOrElseThrow(dto.getUserId());
+        User findUser = userRepository.findByIdOrElseThrow(userId);
 
         Todo saveTodo = new Todo(dto.getTitle(), dto.getContents());
         saveTodo.setUser(findUser);
@@ -45,15 +45,26 @@ public class TodoServiceImpl implements TodoService {
 
     @Transactional
     @Override
-    public TodoResDto update(Long id, UpdateTodoReqDto dto) {
+    public TodoResDto update(Long id, Long userId, UpdateTodoReqDto dto) {
         Todo findTodo = todoRepository.findByIdOrElseThrow(id);
 
-        if (!findTodo.getUser().getId().equals(dto.getUserId())) {
+        if (!findTodo.getUser().getId().equals(userId)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid user");
         }
 
         findTodo.updateTodo(dto.getTitle(), dto.getContents());
 
         return new TodoResDto(findTodo);
+    }
+
+    @Override
+    public void delete(Long id, Long userId) {
+        Todo findTodo = todoRepository.findByIdOrElseThrow(id);
+
+        if (!findTodo.getUser().getId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid user");
+        }
+
+        todoRepository.delete(findTodo);
     }
 }

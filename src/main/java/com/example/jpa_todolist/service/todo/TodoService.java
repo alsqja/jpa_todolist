@@ -5,4 +5,6 @@ import com.example.jpa_todolist.dto.todo.TodoResDto;
 
 public interface TodoService {
     TodoResDto save(CreateTodoReqDto dto);
+
+    TodoResDto findById(Long id);
 }

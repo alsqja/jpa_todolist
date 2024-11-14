@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +24,10 @@ public class TodoController {
     @PostMapping
     public ResponseEntity<TodoResDto> save(@Valid @RequestBody CreateTodoReqDto dto) {
         return new ResponseEntity<>(todoService.save(dto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TodoResDto> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(todoService.findById(id), HttpStatus.OK);
     }
 }

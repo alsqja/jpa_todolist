@@ -1,6 +1,7 @@
 package com.example.jpa_todolist.v2.controller.user;
 
 import com.example.jpa_todolist.v1.dto.comment.CommentResDto;
+import com.example.jpa_todolist.v1.dto.todo.TodoResDto;
 import com.example.jpa_todolist.v2.service.user.UserServiceV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,5 +23,10 @@ public class UserControllerV2 {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentResDto>> findAllUserComments(@PathVariable Long id) {
         return new ResponseEntity<>(userServiceV2.findAllUserComments(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/todos")
+    public ResponseEntity<List<TodoResDto>> findAllUserTodos(@PathVariable Long id) {
+        return new ResponseEntity<>(userServiceV2.findAllUserTodos(id), HttpStatus.OK);
     }
 }

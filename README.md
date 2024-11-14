@@ -95,3 +95,5 @@
     - [x]  디폴트 `페이지 크기`는 10으로 적용합니다.
 - [x]  일정의 `수정일`을 기준으로 내림차순 정렬합니다.
 
+# Trouble Shooting
+[[Trouble Shooting] Filter 에서 exceptionHandling](https://velog.io/@alsqja2626/Trouble-Shooting-Filter-%EC%97%90%EC%84%9C-exceptionHandling)

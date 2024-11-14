@@ -39,7 +39,17 @@ public class UserController {
         HttpSession session = request.getSession();
 
         session.setAttribute(Const.LOGIN_USER, findUser);
-        
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

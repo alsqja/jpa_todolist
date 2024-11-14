@@ -22,9 +22,11 @@ public class Todo extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(nullable = false)
     private String title;
 
+    @Setter
     @Column(nullable = false)
     private String contents;
 
@@ -40,10 +42,5 @@ public class Todo extends BaseEntity {
 
     public Todo() {
 
-    }
-
-    public void updateTodo(String title, String contents) {
-        this.title = title;
-        this.contents = contents;
     }
 }

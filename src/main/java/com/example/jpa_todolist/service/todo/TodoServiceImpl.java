@@ -52,7 +52,12 @@ public class TodoServiceImpl implements TodoService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid user");
         }
 
-        findTodo.updateTodo(dto.getTitle(), dto.getContents());
+        if (dto.getTitle() != null) {
+            findTodo.setTitle(dto.getTitle());
+        }
+        if (dto.getContents() != null) {
+            findTodo.setContents(dto.getContents());
+        }
 
         return new TodoResDto(findTodo);
     }

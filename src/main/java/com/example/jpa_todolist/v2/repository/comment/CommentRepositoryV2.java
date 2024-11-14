@@ -8,4 +8,6 @@ import java.util.List;
 public interface CommentRepositoryV2 extends JpaRepository<Comment, Long> {
 
     List<Comment> findByTodoIdOrderByUpdatedAtDesc(Long id);
+
+    List<Comment> findByUserIdOrderByUpdatedAtDesc(Long id);
 }

@@ -36,7 +36,7 @@ public class TodoServiceImplV2 implements TodoServiceV2 {
                 todo.getUpdatedAt()
         ));
 
-        return new TodoPagingResDto(todos.getTotalElements(), todos.getTotalPages(), todos.getContent());
+        return new TodoPagingResDto(todos.getTotalPages(), todos.getTotalElements(), todos.getContent());
     }
 
     @Override

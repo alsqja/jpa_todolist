@@ -10,4 +10,6 @@ public interface UserService {
     UserResDto login(LoginReqDto dto);
 
     void delete(Long id);
+
+    UserResDto findById(Long id);
 }

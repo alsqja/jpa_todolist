@@ -1,11 +1,12 @@
 package com.example.jpa_todolist.v1.dto.user;
 
+import com.example.jpa_todolist.v1.service.common.ResDtoBaseType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class CreateUserReqDto {
+public class CreateUserReqDto implements ResDtoBaseType {
 
     @NotNull(message = "name is required")
     private final String name;

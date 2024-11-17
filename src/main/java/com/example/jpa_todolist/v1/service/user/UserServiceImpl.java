@@ -6,7 +6,8 @@ import com.example.jpa_todolist.v1.dto.user.LoginReqDto;
 import com.example.jpa_todolist.v1.dto.user.UserResDto;
 import com.example.jpa_todolist.v1.entity.user.User;
 import com.example.jpa_todolist.v1.repository.user.UserRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.jpa_todolist.v1.service.common.AbstractBaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,11 +15,22 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends AbstractBaseService<User, UserResDto> implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        super(userRepository);
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserResDto toResponseDto(User user) {
+        return new UserResDto(user);
+    }
 
     @Override
     public UserResDto signUp(CreateUserReqDto dto) {
@@ -32,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
         User saveUser = new User(dto.getName(), dto.getEmail(), password);
 
-        return new UserResDto(userRepository.save(saveUser));
+        return toResponseDto(userRepository.save(saveUser));
     }
 
     @Override
@@ -43,7 +55,7 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "check your password");
         }
 
-        return new UserResDto(findUser);
+        return toResponseDto(findUser);
     }
 
     @Override
@@ -51,10 +63,5 @@ public class UserServiceImpl implements UserService {
         User findUser = userRepository.findByIdOrElseThrow(id);
 
         userRepository.delete(findUser);
-    }
-
-    @Override
-    public UserResDto findById(Long id) {
-        return new UserResDto(userRepository.findByIdOrElseThrow(id));
     }
 }

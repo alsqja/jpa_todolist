@@ -1,12 +1,13 @@
 package com.example.jpa_todolist.v1.dto.comment;
 
 import com.example.jpa_todolist.v1.entity.comment.Comment;
+import com.example.jpa_todolist.v1.service.common.ResDtoBaseType;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class CommentResDto {
+public class CommentResDto implements ResDtoBaseType {
 
     private final Long id;
 

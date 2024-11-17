@@ -1,12 +1,13 @@
 package com.example.jpa_todolist.v1.dto.todo;
 
 import com.example.jpa_todolist.v1.entity.todo.Todo;
+import com.example.jpa_todolist.v1.service.common.ResDtoBaseType;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class TodoResDto {
+public class TodoResDto implements ResDtoBaseType {
 
     private final Long id;
 
